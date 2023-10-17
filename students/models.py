@@ -21,6 +21,7 @@ semesters = [
     ('sem8', '8')
 ]
 
+
 levels = [
     ('dis', 'District'),
     ('state', 'State'),
@@ -56,10 +57,22 @@ class Student(models.Model):
     def __str__(self):
         return self
 
+class Teacher(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    branch = models.CharField(max_length=100, choices=branches, default=None)
+    sem = models.CharField(max_length=5, choices=semesters, default=None)
+    img = models.ImageField(upload_to='images/avatar', default=None)
+    batch = models.CharField(max_length=100, default=None)
+
+    class Meta:
+        ordering = ['user']
+
+    def __str__(self):
+        return self
+    
 
 class Activitylist(models.Model):
-    student = models.ForeignKey(
-        Student, on_delete=models.CASCADE, default=None)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, default=None)
     title = models.CharField(max_length=10, default=None)
     level = models.CharField(max_length=100, choices=levels, default=None)
     img = models.ImageField(upload_to='images/certificate', default=None)
