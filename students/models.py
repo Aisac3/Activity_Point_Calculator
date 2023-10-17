@@ -50,6 +50,9 @@ class Student(models.Model):
     sem = models.CharField(max_length=5, choices=semesters, default=None)
     img = models.ImageField(upload_to='images/avatar', default=None)
 
+    class Meta:
+        ordering = ['user']
+
     def __str__(self):
         return self
 
@@ -60,10 +63,12 @@ class Activitylist(models.Model):
     title = models.CharField(max_length=10, default=None)
     level = models.CharField(max_length=100, choices=levels, default=None)
     img = models.ImageField(upload_to='images/certificate', default=None)
-    category = models.CharField(
-        max_length=100, choices=categories, default=None)
+    category = models.CharField(max_length=100, choices=categories, default=None)
     date = models.DateField(default=date.today)
     status = models.CharField(max_length=100, choices=status, default='pen')
+
+    class Meta:
+        ordering = ['id']
 
     def __str__(self):
         return self
